@@ -1,2 +1,2 @@
 # vihanModi
-a version o modern dictionary for vihan language academy
+a version of modern dictionary for vihan language academy.
