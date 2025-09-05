@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] {
+    display: none;
+}
+
+html {
+    font-family: 'Inter', sans-serif; /* پیش‌فرض انگلیسی */
+}
+
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('/public/fonts/Vazirmatn/Vazirmatn-Bold.woff2') format('woff2'),
+    url('/public/fonts/Vazirmatn/Vazirmatn-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('/public/fonts/Vazirmatn/Vazirmatn-Bold.woff2') format('woff2'),
+    url('/public/fonts/Vazirmatn/Vazirmatn-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+html[lang="ar"] {
+    font-family: 'Amiri', serif; /* برای زبان عربی */
+}
+
+
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image: none !important; /* فلش لعنتی مرورگر */
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0 0 0 3px !important;
+ 
+}
