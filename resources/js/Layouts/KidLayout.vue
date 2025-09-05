@@ -609,11 +609,9 @@ const setLanguage = (lang) => {
                                 ></div>
                             </div>
                             <div class="flex flex-col gap-y-3">
-                                <p>تماس باما</p>
+                                <p>تماس با ما</p>
                                 <p>درباره ما</p>
-                                <p>دیکشنری</p>
                                 <p>سوالات متداول</p>
-                                <p>آزمون تعیین سطح</p>
                             </div>
                         </div>
                         <div class="flex flex-col gap-y-5">
@@ -634,7 +632,7 @@ const setLanguage = (lang) => {
                                         alt=""
                                         class="h-8"
                                     />
-                                    <p>آدرس سازمان</p>
+                                    <p>کرج ، بلوار طالقانی شمالی نرسیده به آزادگان</p>
                                 </div>
                                 <div class="flex items-center gap-x-2">
                                     <img
@@ -642,7 +640,7 @@ const setLanguage = (lang) => {
                                         alt=""
                                         class="h-8"
                                     />
-                                    <p>شماره تماس</p>
+                                    <p>02634487016</p>
                                 </div>
                                 <div class="flex items-center gap-x-2">
                                     <img
@@ -650,7 +648,7 @@ const setLanguage = (lang) => {
                                         alt=""
                                         class="h-8"
                                     />
-                                    <p>آدرس ایمیل</p>
+                                    <p>info@vihanlanguage.com</p>
                                 </div>
                             </div>
                         </div>
@@ -743,7 +741,7 @@ const setLanguage = (lang) => {
 
                         <!-- Instagram -->
                         <a
-                            href="https://www.instagram.com/modern_dictionary_modi?igsh=cmFlcHAzY2VoanBj"
+                            href="https://www.instagram.com/vihan_language_center"
                             class="relative bg-[#704ee7] rounded-full p-[8.5px] flex items-center justify-center"
                         >
                             <span class="sr-only"
