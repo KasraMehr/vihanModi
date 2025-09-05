@@ -18,7 +18,7 @@ const form = useForm({
     email: '',
     password: '',
     password_confirmation: '',
-    role: 'teacher',
+    role: 'student',
     terms: false,
     language_level: null,
     is_child: false,

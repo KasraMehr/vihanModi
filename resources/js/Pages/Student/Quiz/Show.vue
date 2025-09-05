@@ -1,48 +1,9 @@
 <script setup>
-import { ref, computed } from 'vue';
 import StudentLayout from "@/Layouts/StudentLayout.vue";
 
 const props = defineProps({
   quiz: Object
 });
-
-// دیتای آماده برای آزمون و سوالات
-const mockQuizzes = [
-  {
-    id: 1,
-    title: "آزمون لغات سطح مقدماتی",
-    time_limit: 20,
-    pass_score: 70,
-    questions: [
-      {
-        question_text: "معنی کلمه 'Book' چیست؟",
-        question_type: "multiple_choice",
-        options: ["کتاب", "دفتر", "قلم", "میز"],
-        correct_answer: "کتاب",
-      },
-      {
-        question_text: "مترادف 'Happy' کدام است؟",
-        question_type: "multiple_choice",
-        options: ["غمگین", "خوشحال", "عصبانی", "خسته"],
-        correct_answer: "خوشحال",
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: "آزمون گرامر سطح متوسط",
-    time_limit: 30,
-    pass_score: 75,
-    questions: [
-      {
-        question_text: "جمله 'She ___ to school every day.' را با گزینه صحیح کامل کنید.",
-        question_type: "multiple_choice",
-        options: ["go", "goes", "going", "gone"],
-        correct_answer: "goes",
-      },
-    ],
-  },
-];
 </script>
 
 <template>
@@ -55,7 +16,8 @@ const mockQuizzes = [
         <div class="flex items-center" :class="locale === 'fa' ? 'space-x-reverse' : ''">
           <div class="bg-white/80 dark:bg-gray-800/50 px-4 py-2 mx-2 rounded-xl shadow-soft">
             <span class="text-gray-700 dark:text-gray-300">زمان: </span>
-            <span class="font-medium text-gray-800 dark:text-gray-200">{{ quiz.time_limit }} دقیقه</span>
+            <span class="font-medium text-gray-800 dark:text-gray-200" v-if="quiz.timeLeft !== 0">{{ quiz.time_limit }} دقیقه</span>
+            <span class="font-medium text-gray-800 dark:text-gray-200" v-else>99 دقیقه</span>
           </div>
           <div class="bg-white/80 dark:bg-gray-800/50 px-4 py-2 mx-2 rounded-xl shadow-soft">
             <span class="text-gray-700 dark:text-gray-300">حداقل نمره: </span>
@@ -140,15 +102,16 @@ const mockQuizzes = [
           </h3>
 
           <!-- Options -->
+          <!-- MCQ Questions -->
           <div v-if="currentQuestion.question_type === 'mcq'" class=" grid grid-cols-2 gap-4">
             <div
               v-for="(option, index) in currentQuestion.options"
               :key="index"
               @click="selectAnswer(index)"
-              class="p-4 rounded-lg cursor-pointer transition-all border border-white/50 dark:border-gray-700/50 hover:border-purple-600/30 hover:bg-purple-600/5"
+              class="p-4 rounded-lg cursor-pointer transition-all border border-white/50 dark:border-gray-700/50 hover:border-purple-600/30 dark:hover:border-purple-600 hover:bg-purple-600/5 dark:hover:bg-purple-600/5"
               :class="{
-                'bg-purple-600/10 border-purple-600/30': selectedAnswer === option,
-                'bg-white/50 dark:bg-gray-700/50': selectedAnswer !== option
+                'bg-purple-600/10 border-purple-600/30 dark:bg-purple-600/10 dark:border-purple-600/30': selectedAnswer === index.toString(),
+                'bg-white/50 dark:bg-gray-700/50': selectedAnswer !== option.toString()
               }"
             >
               <div class="flex items-center">
@@ -277,8 +240,8 @@ const mockQuizzes = [
                         <div v-for="(result, index) in results" :key="index" class="flex justify-between items-center">
                             <span class="text-gray-700 dark:text-gray-300">سوال {{ index + 1 }}</span>
                             <span :class="result.correct ? 'text-green-600 dark:text-green-400' : 'text-purple-600 dark:text-purple-400'">
-            {{ result.correct ? 'صحیح' : 'غلط' }}
-          </span>
+                              {{ result.correct ? 'صحیح' : 'غلط' }}
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -433,6 +396,10 @@ import {     ArrowLeftIcon,
       startQuiz() {
         this.quizStarted = true
         this.timeLeft = this.quiz.time_limit * 60 // Convert to seconds
+        if (this.timeLeft === 0)
+        {
+            this.timeLeft = 99 * 60;
+        }
         this.startTimer()
       },
 

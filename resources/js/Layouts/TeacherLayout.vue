@@ -21,6 +21,14 @@ const toggleLanguageMenu = () => {
     isLanguageMenuOpen.value = !isLanguageMenuOpen.value;
 };
 
+const navItems = [
+    { icon: 'home', label: 'داشبورد', to: '/teacher/dashboard' },
+    { icon: 'book', label: 'دوره‌ها', to: '/teacher/courses' },
+    { icon: 'file-text', label: 'آزمون‌ها', to: '/teacher/quizzes' },
+    { icon: 'users', label: 'دانشجویان', to: '/teacher/students' },
+    { icon: 'file', label: 'منابع', to: '/teacher/resources' },
+]
+
 // آیتم‌های منوی موبایل
 const mobileMenuItems = [
     { icon: 'home', label: 'داشبورد', to: '/teacher/dashboard' },
@@ -124,11 +132,21 @@ const logout = () => {
           </div>
 
         <nav class="my-6 space-y-2 px-2">
-        <NavItem icon="home" label="داشبورد" to="/teacher/dashboard" />
-        <NavItem icon="book" label="دوره‌ها" to="/teacher/courses" />
-        <NavItem icon="file-text" label="آزمون‌ها" to="/teacher/quizzes" />
-        <NavItem icon="users" label="دانشجویان" to="/teacher/students" />
-        <NavItem icon="file" label="منابع" to="/teacher/resources" />
+            <NavItem
+                    v-for="item in navItems"
+                    :key="item.to"
+                    :icon="item.icon"
+                    :label="item.label"
+                    :to="item.to"
+                    :badge="item.badge"
+                    :class="[
+                        'group rounded-lg transition-all m-1',
+                        $page.url.startsWith(item.to) ?
+                            'bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400' :
+                            'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    ]"
+            >
+            </NavItem>
       </nav>
       <div class="mt-auto flex items-center justify-between px-4 py-4 gap-4 border-t border-gray-200 dark:border-gray-700">
           <!-- تم -->

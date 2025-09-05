@@ -13,7 +13,7 @@
                 <div class="flex justify-end mb-6">
                     <button
                         @click="toggleEditMode"
-                        class="flex items-center px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors"
+                        class="flex items-center px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors"
                     >
                         <PencilIcon class="w-5 h-5 mx-2" />
                         {{ editMode ? 'ذخیره تغییرات' : 'ویرایش پروفایل' }}
@@ -52,7 +52,7 @@
                             <!-- دکمه حذف -->
                             <button v-if="editMode && form.profile_photo_url && !form.profile_photo_url.includes('default-profile')"
                                     @click.stop="removeProfilePhoto"
-                                    class="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 hover:bg-red-600">
+                                    class="absolute top-0 right-0 bg-purple-500 text-white rounded-full p-1 hover:bg-purple-600">
                                 <XMarkIcon class="w-4 h-4" />
                             </button>
                         </div>
@@ -68,7 +68,7 @@
                             <div>
                                 <label v-if="editMode" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">عنوان شغلی</label>
                                 <input v-if="editMode" v-model="form.title" type="text" class="w-full px-4 py-2 text-gray-900 dark:text-white bg-white/50 dark:bg-gray-700/50 rounded-lg border border-gray-300 dark:border-gray-600">
-                                <p v-else class="text-lg text-red-600 dark:text-red-400">{{ form.title }}</p>
+                                <p v-else class="text-lg text-purple-600 dark:text-purple-400">{{ form.title }}</p>
                             </div>
 
                             <!-- زبان‌ها -->
@@ -90,7 +90,7 @@
                                     >
                                     <button
                                         @click="addLanguage"
-                                        class="absolute left-3 top-2 text-red-600 hover:text-red-800"
+                                        class="absolute left-3 top-2 text-purple-600 hover:text-purple-800"
                                         title="افزودن زبان"
                                     >
                                         <PlusCircleIcon class="w-5 h-5" />
@@ -105,7 +105,7 @@
                                         class="px-3 py-1 text-sm rounded-full flex items-center"
                                         :class="editMode
                                         ? 'bg-orange-100 dark:bg-orange-900/50 text-orange-800 dark:text-orange-200'
-                                        : 'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-200'"
+                                        : 'bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-200'"
                                     >
                                       {{ lang }}
                                       <button
@@ -127,7 +127,7 @@
                                 </div>
 
                                 <!-- نمایش خطاها -->
-                                <p v-if="form.errors.languages" class="mt-1 text-sm text-red-600 dark:text-red-500">
+                                <p v-if="form.errors.languages" class="mt-1 text-sm text-purple-600 dark:text-purple-500">
                                     {{ form.errors.languages }}
                                 </p>
                             </div>
@@ -142,7 +142,7 @@
                         <!-- درباره مدرس -->
                         <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg rounded-2xl p-6 shadow-sm dark:shadow-gray-900/10 border border-white/20">
                             <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                                <InformationCircleIcon class="w-6 h-6 text-red-500 mx-2" />
+                                <InformationCircleIcon class="w-6 h-6 text-purple-500 mx-2" />
                                 درباره مدرس
                             </h3>
                             <textarea v-if="editMode" v-model="form.bio" rows="5" class="w-full px-4 py-2 text-gray-900 dark:text-white bg-white/50 dark:bg-gray-700/50 rounded-lg border border-gray-300 dark:border-gray-600"></textarea>
@@ -153,10 +153,10 @@
                         <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg rounded-2xl p-6 shadow-sm dark:shadow-gray-900/10 border border-white/20">
                             <div class="flex justify-between items-center mb-4">
                                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white flex items-center">
-                                    <AcademicCapIcon class="w-6 h-6 text-red-500 mx-2" />
+                                    <AcademicCapIcon class="w-6 h-6 text-purple-500 mx-2" />
                                     تجربیات و مدارک
                                 </h3>
-                                <button v-if="editMode" @click="addExperience" class="text-sm text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 flex items-center">
+                                <button v-if="editMode" @click="addExperience" class="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 flex items-center">
                                     <PlusIcon class="w-4 h-4 mx-1" />
                                     افزودن تجربه
                                 </button>
@@ -164,8 +164,8 @@
 
                             <div class="space-y-4">
                                 <div v-for="(experience, index) in form.experiences" :key="index"
-                                     class="border-l-4 border-red-500 pl-4 py-2 relative">
-                                    <button v-if="editMode" @click="removeExperience(index)" class="absolute left-0 top-0 -mx-6 text-red-500 hover:text-red-700">
+                                     class="border-l-4 border-purple-500 pl-4 py-2 relative">
+                                    <button v-if="editMode" @click="removeExperience(index)" class="absolute left-0 top-0 -mx-6 text-purple-500 hover:text-purple-700">
                                         <XMarkIcon class="w-5 h-5" />
                                     </button>
 
@@ -204,7 +204,7 @@
                         <!-- اطلاعات تماس -->
                         <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg rounded-2xl p-6 shadow-sm dark:shadow-gray-900/10 border border-white/20">
                             <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                                <EnvelopeIcon class="w-6 h-6 text-red-500 mx-2" />
+                                <EnvelopeIcon class="w-6 h-6 text-purple-500 mx-2" />
                                 اطلاعات تماس
                             </h3>
 
@@ -241,7 +241,7 @@
                             <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                                 <div class="flex justify-between items-center mb-2">
                                     <h4 class="font-medium text-gray-900 dark:text-white">شبکه‌های اجتماعی</h4>
-                                    <button v-if="editMode" @click="addSocialLink" class="text-sm text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 flex items-center">
+                                    <button v-if="editMode" @click="addSocialLink" class="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 flex items-center">
                                         <PlusIcon class="w-4 h-4 mx-1" />
                                         افزودن شبکه اجتماعی
                                     </button>
@@ -257,14 +257,14 @@
                                             <option value="youtube">یوتیوب</option>
                                         </select>
                                         <input v-model="social.url" type="url" placeholder="لینک پروفایل" class="flex-2 px-3 py-1 text-gray-900 dark:text-white bg-white/50 dark:bg-gray-700/50 rounded border border-gray-300 dark:border-gray-600">
-                                        <button @click="removeSocialLink(index)" class="text-red-500 hover:text-red-700">
+                                        <button @click="removeSocialLink(index)" class="text-purple-500 hover:text-purple-700">
                                             <XMarkIcon class="w-5 h-5" />
                                         </button>
                                     </div>
                                 </div>
                                 <div v-else class="flex space-x-3">
                                     <a v-for="social in form.social_links" :key="social.name" :href="social.url" target="_blank"
-                                       class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-red-100 dark:hover:bg-red-900/50 hover:text-red-600 dark:hover:text-red-400 transition-colors duration-300">
+                                       class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-purple-100 dark:hover:bg-purple-900/50 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-300">
                                         <component :is="socialIcons[social.name]" class="w-5 h-5" />
                                     </a>
                                 </div>
@@ -274,7 +274,7 @@
                         <!-- روش‌های تدریس -->
                         <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg rounded-2xl p-6 shadow-sm dark:shadow-gray-900/10 border border-white/20">
                             <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                                <LightBulbIcon class="w-6 h-6 text-red-500 mx-2" />
+                                <LightBulbIcon class="w-6 h-6 text-purple-500 mx-2" />
                                 روش‌های تدریس
                             </h3>
 
@@ -284,9 +284,9 @@
                                        placeholder="روش جدید را وارد و Enter بزنید">
                                 <div class="flex flex-wrap gap-2">
                   <span v-for="(method, index) in form.teaching_methods" :key="index"
-                        class="px-3 py-1 text-sm rounded-full bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-800 flex items-center">
+                        class="px-3 py-1 text-sm rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 border border-purple-200 dark:border-purple-800 flex items-center">
                     {{ method }}
-                    <button @click="removeTeachingMethod(index)" class="mx-1 text-red-600 hover:text-red-800">
+                    <button @click="removeTeachingMethod(index)" class="mx-1 text-purple-600 hover:text-purple-800">
                       <XMarkIcon class="w-4 h-4" />
                     </button>
                   </span>
@@ -294,7 +294,7 @@
                             </div>
                             <div v-else class="flex flex-wrap gap-2">
                 <span v-for="(method, index) in form.teaching_methods" :key="index"
-                      class="px-3 py-1 text-sm rounded-full bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-800">
+                      class="px-3 py-1 text-sm rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 border border-purple-200 dark:border-purple-800">
                   {{ method }}
                 </span>
                             </div>

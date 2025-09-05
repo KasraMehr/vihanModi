@@ -44,7 +44,7 @@
                         <!-- خط چین زیر عنوان برای نشان دادن قابلیت کلیک -->
                         <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-500 transition-all duration-300 group-hover:w-full"></span>
                         <h3 class="font-bold text-lg text-gray-800 dark:text-gray-100 flex items-center gap-2 relative">
-                            <BookOpenIcon class="w-5 h-5 text-purple-600" />
+                            <BookOpenIcon class="w-5 h-5 text-blue-600" />
                             سرفصل‌های دوره
                         </h3>
                     </div>
