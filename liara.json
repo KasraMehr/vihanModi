@@ -5,7 +5,7 @@
         "location": "iran"
     },
     "laravel": {
-        "phpVersion": "8.2"
+        "phpVersion": "8.4"
     },
     "disks": []
 }
