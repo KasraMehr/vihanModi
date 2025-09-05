@@ -538,6 +538,47 @@ class Indices extends AbstractEndpoint
 
 
 	/**
+	 * Deletes the data stream options of the selected data streams.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+	 *
+	 * @param array{
+	 *     name: string|array<string>, // (REQUIRED) A comma-separated list of data streams of which the data stream options will be deleted; use `*` to get all data streams
+	 *     expand_wildcards?: string, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     timeout?: int|string, // Explicit timestamp for the document
+	 *     master_timeout?: int|string, // Specify timeout for connection to master
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function deleteDataStreamOptions(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['name'], $params);
+		$url = '/_data_stream/' . $this->encode($this->convertValue($params['name'])) . '/_options';
+		$method = 'DELETE';
+
+		$url = $this->addQueryString($url, $params, ['expand_wildcards','timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'indices.delete_data_stream_options');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
 	 * Deletes an index template.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-delete-template.html
@@ -1269,6 +1310,85 @@ class Indices extends AbstractEndpoint
 
 
 	/**
+	 * Returns the data stream options of the selected data streams.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+	 *
+	 * @param array{
+	 *     name: string|array<string>, // (REQUIRED) A comma-separated list of data streams to get; use `*` to get all data streams
+	 *     expand_wildcards?: string, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     master_timeout?: int|string, // Specify timeout for connection to master
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function getDataStreamOptions(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['name'], $params);
+		$url = '/_data_stream/' . $this->encode($this->convertValue($params['name'])) . '/_options';
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['expand_wildcards','master_timeout','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'indices.get_data_stream_options');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Gets a data stream's settings
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+	 *
+	 * @param array{
+	 *     name: string, // (REQUIRED) Comma-separated list of data streams or data stream patterns
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function getDataStreamSettings(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['name'], $params);
+		$url = '/_data_stream/' . $this->encode($params['name']) . '/_settings';
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['master_timeout','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'indices.get_data_stream_settings');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
 	 * Returns mapping for one or more fields.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-field-mapping.html
@@ -1750,6 +1870,91 @@ class Indices extends AbstractEndpoint
 
 
 	/**
+	 * Updates the data stream options of the selected data streams.
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+	 *
+	 * @param array{
+	 *     name: string|array<string>, // (REQUIRED) A comma-separated list of data streams whose options will be updated; use `*` to set the options to all data streams
+	 *     expand_wildcards?: string, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     timeout?: int|string, // Explicit timestamp for the document
+	 *     master_timeout?: int|string, // Specify timeout for connection to master
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // The data stream options configuration that consist of the failure store configuration. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function putDataStreamOptions(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['name'], $params);
+		$url = '/_data_stream/' . $this->encode($this->convertValue($params['name'])) . '/_options';
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['expand_wildcards','timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'indices.put_data_stream_options');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Updates a data stream's settings
+	 *
+	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+	 *
+	 * @param array{
+	 *     name: string, // (REQUIRED) Comma-separated list of data streams or data stream patterns
+	 *     dry_run?: bool, // Whether this request should only be a dry run rather than actually applying settings
+	 *     timeout?: int|string, // Period to wait for a response
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The data stream settings to be updated. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function putDataStreamSettings(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['name','body'], $params);
+		$url = '/_data_stream/' . $this->encode($params['name']) . '/_settings';
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['dry_run','timeout','master_timeout','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['name'], $request, 'indices.put_data_stream_settings');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
 	 * Creates or updates an index template.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-template.html
@@ -1898,6 +2103,7 @@ class Indices extends AbstractEndpoint
 	 *     name: string, // (REQUIRED) The name of the template
 	 *     order?: int, // The order for this template when merging multiple matching ones (higher numbers are merged later, overriding the lower numbers)
 	 *     create?: bool, // Whether the index template should only be added if new or can also replace an existing one
+	 *     cause?: string, // User defined reason for creating/updating the index template
 	 *     master_timeout?: int|string, // Specify timeout for connection to master
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -1921,7 +2127,7 @@ class Indices extends AbstractEndpoint
 		$url = '/_template/' . $this->encode($params['name']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['order','create','master_timeout','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['order','create','cause','master_timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1941,6 +2147,9 @@ class Indices extends AbstractEndpoint
 	 *     index?: string|array<string>, // A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
 	 *     detailed?: bool, // Whether to display detailed information about shard recovery
 	 *     active_only?: bool, // Display only those recoveries that are currently on-going
+	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
+	 *     expand_wildcards?: string, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1964,7 +2173,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_recovery';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['detailed','active_only','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['detailed','active_only','ignore_unavailable','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -2060,16 +2269,17 @@ class Indices extends AbstractEndpoint
 
 
 	/**
-	 * Resolves the specified index expressions to return information about each cluster, including the local cluster, if included.
+	 * Resolves the specified index expressions to return information about each cluster. If no index expression is provided, this endpoint will return information about all the remote clusters that are configured on the local cluster.
 	 *
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-cluster-api.html
 	 *
 	 * @param array{
-	 *     name: string|array<string>, // (REQUIRED) A comma-separated list of cluster:index names or wildcard expressions
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string, // Whether wildcard expressions should get expanded to open or closed indices (default: open)
+	 *     name?: string|array<string>, // A comma-separated list of cluster:index names or wildcard expressions
+	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed). Only allowed when providing an index expression.
+	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled. Only allowed when providing an index expression.
+	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified). Only allowed when providing an index expression.
+	 *     expand_wildcards?: string, // Whether wildcard expressions should get expanded to open or closed indices (default: open). Only allowed when providing an index expression.
+	 *     timeout?: int|string, // The maximum time to wait for remote clusters to respond
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2077,7 +2287,6 @@ class Indices extends AbstractEndpoint
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
 	 * } $params
 	 *
-	 * @throws MissingParameterException if a required parameter is missing
 	 * @throws NoNodeAvailableException if all the hosts are offline
 	 * @throws ClientResponseException if the status code of response is 4xx
 	 * @throws ServerResponseException if the status code of response is 5xx
@@ -2087,11 +2296,14 @@ class Indices extends AbstractEndpoint
 	public function resolveCluster(?array $params = null)
 	{
 		$params = $params ?? [];
-		$this->checkRequiredParameters(['name'], $params);
-		$url = '/_resolve/cluster/' . $this->encode($this->convertValue($params['name']));
-		$method = 'GET';
-
-		$url = $this->addQueryString($url, $params, ['ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','pretty','human','error_trace','source','filter_path']);
+		if (isset($params['name'])) {
+			$url = '/_resolve/cluster/' . $this->encode($this->convertValue($params['name']));
+			$method = 'GET';
+		} else {
+			$url = '/_resolve/cluster';
+			$method = 'GET';
+		}
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -2156,7 +2368,6 @@ class Indices extends AbstractEndpoint
 	 *     master_timeout?: int|string, // Specify timeout for connection to master
 	 *     wait_for_active_shards?: string, // Set the number of active shards to wait for on the newly created rollover index before the operation returns.
 	 *     lazy?: bool, // If set to true, the rollover action will only mark a data stream to signal that it needs to be rolled over at the next write. Only allowed on data streams.
-	 *     target_failure_store?: bool, // If set to true, the rollover action will be applied on the failure store of the data stream.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2183,7 +2394,7 @@ class Indices extends AbstractEndpoint
 			$url = '/' . $this->encode($params['alias']) . '/_rollover';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['timeout','dry_run','master_timeout','wait_for_active_shards','lazy','target_failure_store','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','dry_run','master_timeout','wait_for_active_shards','lazy','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

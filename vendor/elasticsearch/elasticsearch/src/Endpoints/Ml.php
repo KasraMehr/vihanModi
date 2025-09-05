@@ -2568,6 +2568,7 @@ class Ml extends AbstractEndpoint
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body?: string|array<mixed>, // The settings for the trained model deployment. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -2646,7 +2647,6 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     datafeed_id: string, // (REQUIRED) The ID of the datafeed to stop
 	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no datafeeds. (This includes `_all` string or when no datafeeds have been specified)
-	 *     allow_no_datafeeds?: bool, // Whether to ignore if a wildcard expression matches no datafeeds. (This includes `_all` string or when no datafeeds have been specified)
 	 *     force?: bool, // True if the datafeed should be forcefully stopped.
 	 *     timeout?: int|string, // Controls the time to wait until a datafeed has stopped. Default to 20 seconds
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -2671,7 +2671,7 @@ class Ml extends AbstractEndpoint
 		$url = '/_ml/datafeeds/' . $this->encode($params['datafeed_id']) . '/_stop';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['allow_no_match','allow_no_datafeeds','force','timeout','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','force','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

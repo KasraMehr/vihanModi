@@ -309,8 +309,6 @@ class Cat extends AbstractEndpoint
 	 * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat.html
 	 *
 	 * @param array{
-	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -330,7 +328,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['help','s','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain',
 		];
@@ -899,6 +897,8 @@ class Cat extends AbstractEndpoint
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to limit the returned information
 	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
+	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
+	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     h?: string|array<string>, // Comma-separated list of column names to display
 	 *     help?: bool, // Return help information
@@ -927,7 +927,7 @@ class Cat extends AbstractEndpoint
 			$url = '/_cat/segments';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['format','bytes','h','help','s','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','local','master_timeout','bytes','h','help','s','v','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
@@ -1050,6 +1050,8 @@ class Cat extends AbstractEndpoint
 	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.
+	 *     wait_for_completion?: bool, // If `true`, the request blocks until the task has completed.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1069,7 +1071,7 @@ class Cat extends AbstractEndpoint
 		$url = '/_cat/tasks';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['format','nodes','actions','detailed','parent_task_id','h','help','s','time','v','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['format','nodes','actions','detailed','parent_task_id','h','help','s','time','v','timeout','wait_for_completion','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'text/plain,application/json',
 		];
