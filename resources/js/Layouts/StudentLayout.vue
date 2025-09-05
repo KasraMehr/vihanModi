@@ -120,7 +120,7 @@ const leaderBoard = () => {
                   </svg>
 
                   <!-- Dropdown Content -->
-                  <div v-if="!miniMode" class="absolute z-10 top-full right-0 w-72 origin-top-right rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-1">
+                  <div v-if="!miniMode" class="absolute z-10 top-full right-0 w-52 origin-top-right rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-1">
                       <div class="py-1">
                           <!-- Profile Section -->
                           <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-700 flex justify-between">

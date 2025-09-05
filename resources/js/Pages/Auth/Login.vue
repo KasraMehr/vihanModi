@@ -47,7 +47,7 @@ const submit = () => {
 
 <template>
     <KidLayout title="sign in">
-    <div class="bg-gradient-to-br min-h-screen  from-gray-100 to-gray-300 dark:from-gray-900 dark:to-gray-800">
+    <div class="bg-gradient-to-br min-h-screen  from-white to-gray-100 dark:from-gray-900 dark:to-gray-800">
         <div class="inset-0 bg-[url('/logo.svg')] bg-center bg-no-repeat bg-fixed opacity-5 dark:opacity-[0.02]"></div>
 
         <div class="relative flex flex-col items-center justify-center p-4">
